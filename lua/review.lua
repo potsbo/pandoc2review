@@ -356,9 +356,10 @@ end
 function Link(s, src, tit)
   if (src == s) then
     return format_inline("href", src)
-  else
-    -- TODO: consider srcs without prefix `https?:`
+  elseif src:find("https://", 1, true) or src:find("http://", 1, true) then
     return format_inline("href", src .. "," .. s) .. Note(src)
+  else
+    return format_inline("href", src .. "," .. s)
   end
 end
 
