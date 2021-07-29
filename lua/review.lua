@@ -358,6 +358,9 @@ function Link(s, src, tit)
     return format_inline("href", src)
   elseif src:find("https://", 1, true) or src:find("http://", 1, true) then
     return format_inline("href", src .. "," .. s) .. Note(src)
+  -- apparently a dirty code and does not work in environments other than @potsbo is considering
+  elseif src:find("./", 1, true) and src:sub(-string.len(".md")) == ".md" then
+    return format_inline("chap", src:gsub(".md$", ""):gsub("^./", ""))
   else
     return format_inline("href", src .. "," .. s)
   end
